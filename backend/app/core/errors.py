@@ -40,6 +40,10 @@ class UnsafeArchiveError(InvalidFileError):
     code = "UNSAFE_ARCHIVE"
 
 
+class UnsafeXMLError(InvalidFileError):
+    code = "UNSAFE_XML"
+
+
 class CRSError(InvalidFileError):
     code = "CRS_UNRESOLVED"
 
