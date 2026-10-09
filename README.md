@@ -775,5 +775,5 @@ Untrusted geospatial files uploaded by external clients are treated as hostile v
 ## 12. Submission Details
 
 - **Author:** Arnav Gandhi
-- **Assignment:** Aereo Software Development Engineer Intern Assignment — Geospatial File Measurement API
+- **Assignment:** Aereo Software Development Engineer Intern Assignment Geospatial File Measurement API
 - **License:** MIT
