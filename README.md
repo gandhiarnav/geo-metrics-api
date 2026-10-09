@@ -10,12 +10,12 @@ Built for the **Aereo Software Development Engineer Intern Assignment** based on
 
 The backend is containerised with Docker, connected to managed PostgreSQL, and running live on **Render**:
 
-| Resource | URL | Description |
-|---|---|---|
-| **Live API Base URL** | [`https://geo-metrics-api.onrender.com`](https://geo-metrics-api.onrender.com) | Production HTTPS endpoint |
-| **Interactive Swagger UI** | [`https://geo-metrics-api.onrender.com/docs`](https://geo-metrics-api.onrender.com/docs) | Test every endpoint directly in your browser |
-| **Alternative ReDoc UI** | [`https://geo-metrics-api.onrender.com/redoc`](https://geo-metrics-api.onrender.com/redoc) | Interactive OpenAPI 3 schema docs |
-| **Health Probe** | [`https://geo-metrics-api.onrender.com/health`](https://geo-metrics-api.onrender.com/health) | Container & service liveness probe |
+| Resource                   | URL                                                                                          | Description                                  |
+| ----------------------------| ----------------------------------------------------------------------------------------------| ----------------------------------------------|
+| **Live API Base URL**      | [`https://geo-metrics-api.onrender.com`](https://geo-metrics-api.onrender.com)               | Production HTTPS endpoint                    |
+| **Interactive Swagger UI** | [`https://geo-metrics-api.onrender.com/docs`](https://geo-metrics-api.onrender.com/docs)     | Test every endpoint directly in your browser |
+| **Alternative ReDoc UI**   | [`https://geo-metrics-api.onrender.com/redoc`](https://geo-metrics-api.onrender.com/redoc)   | Interactive OpenAPI 3 schema docs            |
+| **Health Probe**           | [`https://geo-metrics-api.onrender.com/health`](https://geo-metrics-api.onrender.com/health) | Container & service liveness probe           |
 
 > [!NOTE]
 > **Render Free Tier Spin-up:** If the service has been idle for $\ge 15$ minutes, Render temporarily puts the container to sleep. The very first request may take **30–50 seconds** to spin up. All subsequent requests respond in under 50 milliseconds.
@@ -608,8 +608,10 @@ Many GIS pipelines naively project features to local Universal Transverse Mercat
 
 Our solution:
 1. **Centroid Identification:** Calculate the geographic centroid $(\text{lon}_0, \text{lat}_0)$ of the feature in WGS84.
-2. **Local Equal-Area Projection:** Dynamically construct a local LAEA projection centred directly on the feature:
-   $$\text{+proj=laea +lat\_0}=\text{lat}_0\text{ +lon\_0}=\text{lon}_0\text{ +datum=WGS84 +units=m}$$
+2. **Local Equal-Area Projection:** Dynamically construct a local LAEA projection centred directly on the feature centroid:
+   ```
+   +proj=laea +lat_0=lat₀ +lon_0=lon₀ +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs
+   ```
 3. **Exact Area Preservation:** By mathematical definition, an equal-area projection preserves surface areas on the reference ellipsoid without regional grid-scale distortion.
 4. **Geodesic Oracle Verification:** Alongside the projected planar measurement, we evaluate Karney's ellipsoidal geodesic algorithm using `pyproj.Geod(ellps="WGS84")`. Both values are persisted (`area_sq_m` and `geodesic_area_sq_m`), proving absolute measurement integrity.
 5. **Axis Order Safety:** All `pyproj.Transformer` instances are initialized with `always_xy=True`, enforcing strict `(x, y) = (longitude, latitude)` coordinate order across all GIS formats.
@@ -680,6 +682,15 @@ To provide visual proof of mathematical accuracy, the comparisons below link Goo
 |:---:|:---:|
 | <img src="assets/screenshots/swagger_ui_execute.png" alt="Swagger Ingestion Execution" width="450"/> | <img src="assets/screenshots/swagger_metrics_response.png" alt="Swagger Metrics Response" width="450"/> |
 | *Live `POST /api/files/` ingestion of `test-2areas-1walk.kml` via interactive `/docs`* | *Live `GET /api/files/{id}/measurements/` returning all 3 features + aggregate SQL summary* |
+
+---
+
+### 5.3 Linear Distance Verification (Path Walkway)
+
+| Google Earth Path Measurement Tool | Live API Measurements Response |
+|:---:|:---:|
+| <img src="assets/screenshots/google_earth_walk.png" alt="Google Earth Walk Measurement" width="450"/> | <img src="assets/screenshots/api_walk_measurement_response.png" alt="Live API Walk Metrics" width="450"/> |
+| *Google Earth Path Tool (`walk to ground`): Length = **`897.53 m`*** | *Live API LineString (Feature #1): length_m = **`897.54`** (divergence: $0.01\,\text{m}$ / $1\,\text{cm}$)* |
 
 ---
 
@@ -758,6 +769,6 @@ Untrusted geospatial files uploaded by external clients are treated as hostile v
 ## 11. Submission Details
 
 - **Author:** Arnav Gandhi
-- **Assignment:** Aereo Software Development Engineer Intern Assignment — Geospatial File Measurement API
+- **Assignment:** Aereo Software Development Engineer Intern Assignment  Geospatial File Measurement API
 - **License:** MIT
 
