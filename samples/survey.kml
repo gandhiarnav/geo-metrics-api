@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Karnataka Drone Survey</name>
+    <description>Agricultural and infrastructure boundary survey near Bengaluru</description>
+    <Folder>
+      <name>Parcels</name>
+      <Placemark>
+        <name>Plot Alpha - Agricultural Field</name>
+        <description>Rice paddy field with perimeter irrigation</description>
+        <ExtendedData>
+          <Data name="crop_type"><value>Paddy Rice</value></Data>
+          <Data name="irrigation"><value>Canal</value></Data>
+          <Data name="soil_type"><value>Red Loam</value></Data>
+        </ExtendedData>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <coordinates>
+                77.5900,12.9700,0
+                77.5950,12.9700,0
+                77.5950,12.9750,0
+                77.5900,12.9750,0
+                77.5900,12.9700,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>Plot Beta - Storage Reservoir with Island</name>
+        <description>Water storage reservoir containing a central ecological island</description>
+        <ExtendedData>
+          <SchemaData>
+            <SimpleData name="facility_id">RES-402</SimpleData>
+            <SimpleData name="status">Active</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <coordinates>
+                77.6000,12.9800,0
+                77.6040,12.9800,0
+                77.6040,12.9840,0
+                77.6000,12.9840,0
+                77.6000,12.9800,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+          <innerBoundaryIs>
+            <LinearRing>
+              <coordinates>
+                77.6010,12.9810,0
+                77.6030,12.9810,0
+                77.6030,12.9830,0
+                77.6010,12.9830,0
+                77.6010,12.9810,0
+              </coordinates>
+            </LinearRing>
+          </innerBoundaryIs>
+        </Polygon>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Infrastructure</name>
+      <Placemark>
+        <name>Primary Drainage Canal</name>
+        <description>Concrete-lined water transfer channel</description>
+        <ExtendedData>
+          <Data name="capacity_m3_s"><value>12.5</value></Data>
+        </ExtendedData>
+        <LineString>
+          <coordinates>
+            77.5900,12.9700,910
+            77.5925,12.9720,908
+            77.5950,12.9740,905
+            77.6000,12.9760,902
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Secondary Access Road</name>
+        <description>Unpaved farm access road</description>
+        <LineString>
+          <coordinates>
+            77.6000,12.9800,900
+            77.6020,12.9820,901
+            77.6040,12.9840,903
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Weather Monitoring Station</name>
+        <description>Automated telemetry sensor mast</description>
+        <Point>
+          <coordinates>77.5925,12.9725,915</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+  </Document>
+</kml>
