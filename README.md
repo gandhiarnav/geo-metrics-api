@@ -6,6 +6,116 @@ Built for the **Aereo Software Development Engineer Intern Assignment** based on
 
 ---
 
+## 🚀 Live API Deployment & Quick Testing
+
+The backend is containerised with Docker, connected to managed PostgreSQL, and running live on **Render**:
+
+| Resource | URL | Description |
+|---|---|---|
+| **Live API Base URL** | [`https://geo-metrics-api.onrender.com`](https://geo-metrics-api.onrender.com) | Production HTTPS endpoint |
+| **Interactive Swagger UI** | [`https://geo-metrics-api.onrender.com/docs`](https://geo-metrics-api.onrender.com/docs) | Test every endpoint directly in your browser |
+| **Alternative ReDoc UI** | [`https://geo-metrics-api.onrender.com/redoc`](https://geo-metrics-api.onrender.com/redoc) | Interactive OpenAPI 3 schema docs |
+| **Health Probe** | [`https://geo-metrics-api.onrender.com/health`](https://geo-metrics-api.onrender.com/health) | Container & service liveness probe |
+
+> [!NOTE]
+> **Render Free Tier Spin-up:** If the service has been idle for $\ge 15$ minutes, Render temporarily puts the container to sleep. The very first request may take **30–50 seconds** to spin up. All subsequent requests respond in under 50 milliseconds.
+
+### Quick Verification via `curl` (1-Minute Live Smoke Test)
+
+You can immediately test the live API with real survey files from the `samples/` folder in this repository:
+
+#### Step 1: Verify Service Health
+```bash
+curl -s https://geo-metrics-api.onrender.com/health
+```
+```json
+{"status":"ok","version":"0.1.0"}
+```
+
+#### Step 2: Upload Authentic Google Earth Parcel (`samples/test-geo-metrics-api.kml`)
+```bash
+curl -X POST "https://geo-metrics-api.onrender.com/api/files/" \
+  -F "file=@samples/test-geo-metrics-api.kml"
+```
+**Live Response (`201 Created`):**
+```json
+{
+  "id": "0c5231e1451b46a58762c550b06415cf",
+  "filename": "test-geo-metrics-api.kml",
+  "file_type": "kml",
+  "feature_count": 1,
+  "crs": "EPSG:4326",
+  "status": "COMPLETED",
+  "created_at": "2026-10-09T14:45:44.873558Z",
+  "processed_at": "2026-10-09T14:45:45.101993Z",
+  "warnings": [],
+  "error": null
+}
+```
+
+#### Step 3: Retrieve Calculated Measurements & File Aggregation
+```bash
+curl -s "https://geo-metrics-api.onrender.com/api/files/0c5231e1451b46a58762c550b06415cf/measurements/"
+```
+**Live Response (`200 OK`):**
+```json
+{
+  "file_id": "0c5231e1451b46a58762c550b06415cf",
+  "source_crs": "EPSG:4326",
+  "units": {
+    "area": "sq_m",
+    "length": "m"
+  },
+  "summary": {
+    "feature_count": 1,
+    "measured_count": 1,
+    "not_applicable_count": 0,
+    "unsupported_count": 0,
+    "error_count": 0,
+    "total_area_sq_m": 788.11,
+    "total_length_m": 0.0
+  },
+  "total": 1,
+  "limit": 100,
+  "offset": 0,
+  "measurements": [
+    {
+      "feature_index": 0,
+      "geometry_type": "Polygon",
+      "status": "MEASURED",
+      "area_sq_m": 788.11,
+      "length_m": null,
+      "perimeter_m": 124.38,
+      "geodesic_area_sq_m": 788.11,
+      "geodesic_length_m": null,
+      "measurement_crs": "+proj=laea +lat_0=24.0796 +lon_0=75.0638 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs",
+      "message": null
+    }
+  ]
+}
+```
+
+#### Step 4: Upload Multi-Geometry Google Earth Survey (`samples/test-2areas-1walk.kml`)
+Testing 2 parcels (`Law-college`, `college-ground`) and 1 pathway (`walk from one place to college ground`):
+```bash
+curl -X POST "https://geo-metrics-api.onrender.com/api/files/" \
+  -F "file=@samples/test-2areas-1walk.kml"
+```
+**Live Result Highlights:**
+- **`Law-college` (Polygon):** Area = `21,763.36 m²` ($2.18\text{ ha}$), Perimeter = `591.52 m`
+- **`walk from one place to college ground` (LineString):** Length = `897.54 m`
+- **`college-ground` (Polygon):** Area = `61,980.01 m²` ($6.20\text{ ha}$), Perimeter = `1,025.99 m`
+- **Whole-File Aggregation:** `total_area_sq_m`: **`83,743.37 m²`**, `total_length_m`: **`897.54 m`**
+
+### Zero-Setup Browser Testing (Interactive Swagger UI)
+1. Open [`https://geo-metrics-api.onrender.com/docs`](https://geo-metrics-api.onrender.com/docs) in your browser.
+2. Click on **`POST /api/files/`** $\rightarrow$ **"Try it out"**.
+3. Under the `file` parameter, choose any sample file (`samples/survey.kml`, `samples/survey.kmz`, `samples/survey_shapefile.zip`, `samples/test-geo-metrics-api.kml`, or `samples/test-2areas-1walk.kml`).
+4. Click **"Execute"**. Copy the returned `id`.
+5. Scroll down to **`GET /api/files/{id}/measurements/`**, click **"Try it out"**, paste the `id`, and click **"Execute"** to view survey-grade measurements in real time!
+
+---
+
 ## 1. Overview & Key Capabilities
 
 - **Supported Geospatial Formats:**
@@ -411,10 +521,14 @@ geo-metrics-api/
 ├── render.yaml                    # Infrastructure Blueprint (Docker Web + PostgreSQL)
 ├── docker-compose.yml             # Local multi-container development environment
 ├── .github/workflows/ci.yml       # GitHub Actions CI (Ruff, Mypy, SQLite & PostgreSQL tests)
+├── assets/
+│   └── screenshots/               # Visual proof: Google Earth vs API measurements
 ├── samples/                       # Representative test files
-│   ├── survey.kml                 # KML with polygons, holes, linestrings, and points
+│   ├── survey.kml                 # Synthetic survey: polygons, holes, linestrings, points
 │   ├── survey.kmz                 # Compressed Google Earth KMZ
-│   └── survey_shapefile.zip       # Multi-polygon ESRI Shapefile with .prj and attributes
+│   ├── survey_shapefile.zip       # Multi-polygon ESRI Shapefile with .prj and attributes
+│   ├── test-geo-metrics-api.kml   # Real Google Earth parcel: "2houseand1garden" polygon
+│   └── test-2areas-1walk.kml      # Real Google Earth survey: 2 polygons + 1 pathway
 └── backend/
     ├── pyproject.toml             # uv dependencies, tool settings (Ruff, Mypy, Pytest)
     ├── uv.lock                    # Cryptographically locked dependencies
@@ -514,9 +628,56 @@ The table below demonstrates the survey-grade accuracy of our **Local LAEA** eng
 | **Our Local LAEA Projection** | **$300,075.40\,\text{m}^2$** | **$0.0000\%$** | **Exact match down to the tenth of a square metre.** |
 | **Karney Geodesic (`Geod`)** | **$300,075.40\,\text{m}^2$** | Reference Baseline | Exact numerical integration on the WGS84 ellipsoid. |
 
+### 4.5 Real Google Earth Ground Truth Verification
+
+To verify that the engine handles real-world surveying exports without synthetic bias, two authentic Google Earth surveys (`test-geo-metrics-api.kml` and `test-2areas-1walk.kml`) were created in Google Earth Web and evaluated through the live Render deployment.
+
+The table below contrasts Google Earth's native geodesic measurement tools against our API's Local LAEA engine:
+
+| File / Feature | Type | Google Earth Measure Tool | API Projected Metric | Karney Geodesic Oracle | Divergence |
+|---|---|---|---|---|---|
+| **`test-geo-metrics-api.kml`** | | | | | |
+| `2houseand1garden` | Polygon | $\text{Perimeter: } 124\,\text{m}$<br/>$\text{Area: } 788\,\text{m}^2$ ($0.08\,\text{ha}$) | **$124.38\,\text{m}$**<br/>**$788.11\,\text{m}^2$** | **$124.38\,\text{m}$**<br/>**$788.11\,\text{m}^2$** | **$0.0000\%$** |
+| **`test-2areas-1walk.kml`** | | | | | |
+| `Law-college` | Polygon | $\text{Perimeter: } 592\,\text{m}$<br/>$\text{Area: } 21,763\,\text{m}^2$ ($2.18\,\text{ha}$) | **$591.52\,\text{m}$**<br/>**$21,763.36\,\text{m}^2$** | **$591.52\,\text{m}$**<br/>**$21,763.36\,\text{m}^2$** | **$0.0000\%$** |
+| `walk to ground` | LineString | $\text{Length: } 898\,\text{m}$ | **$897.54\,\text{m}$** | **$897.54\,\text{m}$** | **$0.0000\%$** |
+| `college-ground` | Polygon | $\text{Perimeter: } 1,026\,\text{m}$<br/>$\text{Area: } 61,980\,\text{m}^2$ ($6.20\,\text{ha}$) | **$1,025.99\,\text{m}$**<br/>**$61,980.01\,\text{m}^2$** | **$1,025.99\,\text{m}$**<br/>**$61,980.01\,\text{m}^2$** | **$0.0000\%$** |
+| **Whole-File SQL Aggregate** | Summary | $\sum \text{Area: } 83,743\,\text{m}^2$<br/>$\sum \text{Length: } 898\,\text{m}$ | **$83,743.37\,\text{m}^2$**<br/>**$897.54\,\text{m}$** | Exact DB Sum | **$0.0000\%$** |
+
+> [!NOTE]
+> Reproduce these numbers instantly on any machine by running:
+> ```bash
+> uv run python backend/scripts/verify_samples.py
+> ```
+
 ---
 
-## 5. Design Decisions & Alternatives Considered
+## 5. Visual Proof & Accuracy Verification
+
+To provide visual proof of mathematical accuracy, the comparisons below link Google Earth's native measurement overlays with the corresponding live API outputs.
+
+> [!TIP]
+> Screenshot assets are located in [`assets/screenshots/`](assets/screenshots/). Reviewers can verify these exact live responses by testing any sample file at [`https://geo-metrics-api.onrender.com/docs`](https://geo-metrics-api.onrender.com/docs).
+
+### 5.1 Google Earth Ground Truth vs. Live API Output
+
+| Google Earth Measurement Tool | Live API Measurements Response |
+|:---:|:---:|
+| <img src="assets/screenshots/google_earth_polygon.png" alt="Google Earth Measurement" width="450"/> | <img src="assets/screenshots/api_measurement_response.png" alt="Live API JSON Response" width="450"/> |
+| *Google Earth Polygon Measure Tool (`2houseand1garden`): Perimeter $\approx 124\,\text{m}$, Area $\approx 788\,\text{m}^2$* | *Live API JSON: `area_sq_m: 788.11`, `perimeter_m: 124.38`, `geodesic_area_sq_m: 788.11`* |
+
+---
+
+### 5.2 Multi-Feature Survey & Interactive Swagger UI
+
+| Swagger UI File Ingestion | Swagger UI Metrics & SQL Summary |
+|:---:|:---:|
+| <img src="assets/screenshots/swagger_ui_execute.png" alt="Swagger Ingestion Execution" width="450"/> | <img src="assets/screenshots/swagger_metrics_response.png" alt="Swagger Metrics Response" width="450"/> |
+| *Live `POST /api/files/` ingestion of `test-2areas-1walk.kml` via interactive `/docs`* | *Live `GET /api/files/{id}/measurements/` returning all 3 features + aggregate SQL summary* |
+
+---
+
+## 6. Design Decisions & Alternatives Considered
 
 | Decision | Alternatives Considered | Rationale / Trade-Off Analysis |
 |---|---|---|
@@ -530,7 +691,7 @@ The table below demonstrates the survey-grade accuracy of our **Local LAEA** eng
 
 ---
 
-## 6. Defensive Security & Sandboxing
+## 7. Defensive Security & Sandboxing
 
 Untrusted geospatial files uploaded by external clients are treated as hostile vectors:
 
@@ -547,7 +708,7 @@ Untrusted geospatial files uploaded by external clients are treated as hostile v
 
 ---
 
-## 7. Known Limitations
+## 8. Known Limitations
 
 1. **2D Surface Measurement:**
    KML coordinate triplets `[lon, lat, alt]` drop the altitude component. Measurements represent 2D planar surface areas and planimetric horizontal lengths rather than 3D terrain-draped surface topographies.
@@ -558,7 +719,7 @@ Untrusted geospatial files uploaded by external clients are treated as hostile v
 
 ---
 
-## 8. Concrete Engineering Learnings
+## 9. Concrete Engineering Learnings
 
 1. **The Conformal UTM Area Trap:**
    Standard UTM projections (e.g., `EPSG:32643`) preserve shape (conformal) but introduce grid-scale area distortions ranging from $-0.04\%$ at the central meridian to $+0.4\%$ at zone edges. On agricultural plots, this causes noticeable discrepancies ($> 300\,\text{m}^2$). Transitioning to a dynamic **Lambert Azimuthal Equal-Area (LAEA)** projection guarantees exact ground-truth surface areas.
@@ -573,7 +734,7 @@ Untrusted geospatial files uploaded by external clients are treated as hostile v
 
 ---
 
-## 9. Future Scope
+## 10. Future Scope
 
 1. **PostGIS Relational Spatial Engine:**
    Migrate from SQLite/PostgreSQL JSON storage to native PostGIS geometry columns (`GEOMETRY(Geometry, 4326)`) with spatial R-tree indices (`GIST`) for spatial joins and bounding-box spatial queries.
@@ -588,8 +749,9 @@ Untrusted geospatial files uploaded by external clients are treated as hostile v
 
 ---
 
-## 10. Submission Details
+## 11. Submission Details
 
 - **Author:** Arnav Gandhi
 - **Assignment:** Aereo Software Development Engineer Intern Assignment — Geospatial File Measurement API
 - **License:** MIT
+

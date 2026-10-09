@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:ex="http://earth.google.com/kml/ext">
+<Document id="document">
+	<ex:extension>base64;CooBCoEBCn8KAggBEnkKdwokCiAKAwjQDxoHCNLtZRD_ASEAAAAAAADwPykAAAAAAAAAABgAEg8KCAitgO8HEP8BEKAfGAAaGgoHCP___wcQQBIICK2A7wcQ_wEYoB8gACgAIgkIARIFCP___wcqFwgBEggI____BxD_ARkAAAAAAADwPyAAEgQIARAA</ex:extension>
+	<name>test-2areas-1walk</name>
+	<gx:CascadingStyle kml:id="__managed_style_0D88DDFD3D4256631316_highlight">
+		<ex:extension>base64;EgIYAQ</ex:extension>
+		<Style>
+			<IconStyle>
+				<scale>1.2</scale>
+				<Icon>
+					<href>https://earth.google.com/earth/document/icon?color=1976d2&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<displayMode>hide</displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_0D88DDFD3D4256631316_normal">
+		<ex:extension>base64;EgIYAQ</ex:extension>
+		<Style>
+			<IconStyle>
+				<Icon>
+					<href>https://earth.google.com/earth/document/icon?color=1976d2&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>4</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<displayMode>hide</displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<StyleMap id="__managed_style_0D88DDFD3D4256631316">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#__managed_style_0D88DDFD3D4256631316_normal</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#__managed_style_0D88DDFD3D4256631316_highlight</styleUrl>
+		</Pair>
+	</StyleMap>
+	<gx:CascadingStyle kml:id="__managed_style_0763EB56AE42565FEA51_highlight">
+		<ex:extension>base64;EgIYAQ</ex:extension>
+		<Style>
+			<IconStyle>
+				<scale>1.2</scale>
+				<Icon>
+					<href>https://earth.google.com/earth/document/icon?color=1976d2&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff37405d</color>
+				<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<displayMode>hide</displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<StyleMap id="__managed_style_0763EB56AE42565FEA51">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#__managed_style_0763EB56AE42565FEA51_normal</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#__managed_style_0763EB56AE42565FEA51_highlight</styleUrl>
+		</Pair>
+	</StyleMap>
+	<gx:CascadingStyle kml:id="__managed_style_0763EB56AE42565FEA51_normal">
+		<ex:extension>base64;EgIYAQ</ex:extension>
+		<Style>
+			<IconStyle>
+				<Icon>
+					<href>https://earth.google.com/earth/document/icon?color=1976d2&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff37405d</color>
+				<width>4</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<displayMode>hide</displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_0FACC1BAA542565D8921_highlight">
+		<ex:extension>base64;EgIYAQ</ex:extension>
+		<Style>
+			<IconStyle>
+				<scale>1.2</scale>
+				<Icon>
+					<href>https://earth.google.com/earth/document/icon?color=1976d2&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff000000</color>
+				<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<displayMode>hide</displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_0FACC1BAA542565D8921_normal">
+		<ex:extension>base64;EgIYAQ</ex:extension>
+		<Style>
+			<IconStyle>
+				<Icon>
+					<href>https://earth.google.com/earth/document/icon?color=1976d2&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff000000</color>
+				<width>4</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<displayMode>hide</displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<StyleMap id="__managed_style_0FACC1BAA542565D8921">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#__managed_style_0FACC1BAA542565D8921_normal</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#__managed_style_0FACC1BAA542565D8921_highlight</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Placemark id="0204C7012F42565D18F8">
+		<name>Law-college</name>
+		<LookAt>
+			<longitude>75.0610374655987</longitude>
+			<latitude>24.07906901399356</latitude>
+			<altitude>478.2816121384629</altitude>
+			<heading>7.57750303579417</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>681.9198786290508</range>
+			<altitudeMode>absolute</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_0FACC1BAA542565D8921</styleUrl>
+		<Polygon>
+			<outerBoundaryIs>
+				<LinearRing>
+					<coordinates>
+						75.06164810338987,24.07905720377254,0 75.06198276263365,24.07878711947395,0 75.06254565041539,24.07829340011381,0 75.06267262701267,24.0781858229095,0 75.06379122521685,24.07914870701345,0 75.0638249827109,24.07916604970342,0 75.06384113348309,24.07919856913114,0 75.0638321156037,24.07923701981873,0 75.06380783265911,24.0792709989226,0 75.06366368297748,24.07936375506842,0 75.06265878834557,24.07991427499471,0 75.06164810338987,24.07905720377254,0 
+					</coordinates>
+				</LinearRing>
+			</outerBoundaryIs>
+		</Polygon>
+	</Placemark>
+	<Placemark id="030AE8C97042565F6898">
+		<name>walk from one place to college ground</name>
+		<LookAt>
+			<longitude>75.06361763654135</longitude>
+			<latitude>24.07965752986835</latitude>
+			<altitude>491.8709156100324</altitude>
+			<heading>7.577503590570326</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>125.2713320116527</range>
+			<altitudeMode>absolute</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_0763EB56AE42565FEA51</styleUrl>
+		<LineString>
+			<coordinates>
+				75.05884598143024,24.07932338275258,0 75.060086974331,24.07674435126877,0 75.06034979262849,24.07683456396963,0 75.06121195032853,24.07718985803722,0 75.061644344824,24.0774059722348,0 75.06257628386803,24.07813092008466,0 75.06334703303054,24.07879025193625,0 75.0638643964394,24.07923423632594,0 75.06386296084099,24.07931137275045,0 75.06357813366601,24.07950491571098,0 75.06382143606834,24.0797716328641,0 75.06360848619872,24.07986691316923,0 
+			</coordinates>
+		</LineString>
+	</Placemark>
+	<Placemark id="0A798D65D54256631308">
+		<name>college-ground</name>
+		<LookAt>
+			<longitude>75.05677819311146</longitude>
+			<latitude>24.07989340456443</latitude>
+			<altitude>467.7361864583972</altitude>
+			<heading>7.577500933074496</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>617.6353697935701</range>
+			<altitudeMode>absolute</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_0D88DDFD3D4256631316</styleUrl>
+		<Polygon>
+			<outerBoundaryIs>
+				<LinearRing>
+					<coordinates>
+						75.0583565005243,24.08010962073938,0 75.05824607913323,24.08034277827593,0 75.05808773792099,24.08066817694642,0 75.05802685058475,24.08072654123755,0 75.05790566927784,24.08100511239709,0 75.05779181100588,24.08121965790752,0 75.05764467692261,24.08157531232978,0 75.05760138292793,24.08156260219819,0 75.05717274078965,24.08139626681401,0 75.05661787284275,24.08118427556569,0 75.0559568928591,24.08092049085892,0 75.05565616624979,24.08081362926225,0 75.05559848354824,24.08079280873044,0 75.05557067975177,24.08077007642221,0 75.05556763363062,24.08071697972336,0 75.05654848284297,24.07926363185558,0 75.05687311588365,24.07874539329897,0 75.05708772454958,24.07882529953982,0 75.057231975775,24.0785501173303,0 75.0572690407498,24.07848193973445,0 75.05757782575235,24.0786310505699,0 75.05785663717842,24.07877167334747,0 75.05811898276578,24.07888772165235,0 75.05836458686285,24.07897727799032,0 75.05882429900761,24.07915325625649,0 75.05881267410996,24.07918417189747,0 75.0583565005243,24.08010962073938,0 
+					</coordinates>
+				</LinearRing>
+			</outerBoundaryIs>
+		</Polygon>
+	</Placemark>
+</Document>
+</kml>
