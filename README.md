@@ -585,6 +585,7 @@ curl -X POST "http://localhost:8000/api/files/" \
 ```
 geo-metrics-api/
 ├── README.md                      # Comprehensive project documentation
+├── LICENSE                        # MIT License
 ├── render.yaml                    # Infrastructure Blueprint (Docker Web + PostgreSQL)
 ├── docker-compose.yml             # Local multi-container development environment
 ├── .github/workflows/ci.yml       # GitHub Actions CI (Ruff, Mypy, SQLite & PostgreSQL tests)

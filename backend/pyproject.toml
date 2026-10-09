@@ -3,6 +3,8 @@ name = "geo-metrics-api"
 version = "0.1.0"
 description = "Upload KML or zipped Shapefiles and get accurate per-feature area and length measurements."
 readme = "../README.md"
+license = { text = "MIT" }
+authors = [{ name = "Arnav Gandhi" }]
 requires-python = ">=3.12,<3.14"
 dependencies = [
   "fastapi>=0.115",
